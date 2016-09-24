@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<screen-config xmlns="http://schemas.haulmont.com/cuba/screens.xsd">
+    <include file="com/company/experiment/screens.xml"/>
+    <screen id="experiment$Claim.browse"
+            template="com/company/experiment/web/claim/claim-browse.xml"/>
+    <screen id="experiment$Claim.edit"
+            template="com/company/experiment/web/claim/claim-edit.xml"/>
+    <screen id="experiment$Patient.edit"
+            template="com/company/experiment/web/patient/patient-edit.xml"/>
+    <screen id="experiment$Patient.browse"
+            template="com/company/experiment/web/patient/patient-browse.xml"/>
+</screen-config>

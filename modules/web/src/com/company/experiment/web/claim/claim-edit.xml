@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editCaption"
+        class="com.company.experiment.web.claim.ClaimEdit"
+        datasource="claimDs"
+        messagesPack="com.company.experiment.web.claim">
+    <dsContext>
+        <datasource id="claimDs"
+                    class="com.company.experiment.entity.Claim"
+                    view="claim-edit"/>
+        <collectionDatasource id="patientDs"
+                              class="com.company.experiment.entity.Patient"
+                              view="patient-view">
+            <query>
+                <![CDATA[select e from experiment$Patient e]]>
+            </query>
+        </collectionDatasource>
+        <collectionDatasource id="patientByMemberNumberDs"
+                              class="com.company.experiment.entity.Patient"
+                              view="_local">
+            <query>
+                <![CDATA[select e from experiment$Patient e where  e.memberNumber like :custom$memberNumber]]>
+            </query>
+        </collectionDatasource>
+        <collectionDatasource id="patientByNamesDs"
+                              class="com.company.experiment.entity.Patient"
+                              view="_local">
+            <query>
+                <![CDATA[select e from experiment$Patient e where e.memberNumber is null AND e.firstName like :custom$firstName AND e.lastName like :custom$lastName]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <layout spacing="true">
+        <grid>
+            <columns count="2"/>
+            <rows>
+                <row>
+                    <textField id="memberNumber"
+                               caption="Health Card #"/>
+                </row>
+                <row>
+                    <textField id="firstName"
+                               caption="First Name"/>
+                </row>
+                <row>
+                    <textField id="lastName"
+                               caption="Last Name"/>
+                </row>
+                <row>
+                    <button id="searchByMemberNumber"
+                            align="BOTTOM_LEFT"
+                            caption="Search"
+                            invoke="refreshPatientList"/>
+                </row>
+                <row id="patientList">
+                    <vbox>
+                        <table id="personsTable"
+                               columnControlVisible="false"
+                               contextMenuEnabled="false"
+                               height="100px"
+                               reorderingAllowed="false"
+                               width="200px">
+                            <actions>
+                                <action id="selectPatient"
+                                        invoke="selectPatient"/>
+                            </actions>
+                            <columns>
+                                <column id="memberNumber"/>
+                                <column id="firstName"/>
+                                <column id="lastName"/>
+                                <column id="birthDate"/>
+                            </columns>
+                            <rows datasource="patientByNamesDs"/>
+                        </table>
+                        <fieldGroup id="patientDetails"
+                                    datasource="claimDs"
+                                    editable="false">
+                            <field id="patient.firstName"/>
+                        </fieldGroup>
+                    </vbox>
+                </row>
+                <row>
+                    <dateField id="claimDate"
+                               caption="Claim Date"
+                               datasource="claimDs"
+                               property="claimDate"/>
+                </row>
+                <row>
+                    <textField id="providerName"
+                               caption="Provider Name"
+                               datasource="claimDs"
+                               property="providerName"/>
+                </row>
+                <row/>
+                <row>
+                    <frame id="windowActions"
+                           colspan="2"
+                           screen="extendedEditWindowActions"/>
+                </row>
+            </rows>
+        </grid>
+    </layout>
+</window>

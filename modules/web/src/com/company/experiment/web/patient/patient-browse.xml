@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.company.experiment.web.patient.PatientBrowse"
+        focusComponent="patientsTable"
+        lookupComponent="patientsTable"
+        messagesPack="com.company.experiment.web.patient">
+    <dsContext>
+        <collectionDatasource id="patientsDs"
+                              class="com.company.experiment.entity.Patient"
+                              view="patient-view">
+            <query>
+                <![CDATA[select e from experiment$Patient e]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <layout expand="patientsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="patientsTable"
+                datasource="patientsDs">
+            <properties include=".*"/>
+        </filter>
+        <table id="patientsTable"
+               width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+            </actions>
+            <columns>
+                <column id="memberNumber"/>
+                <column id="firstName"/>
+                <column id="lastName"/>
+                <column id="birthDate"/>
+            </columns>
+            <rows datasource="patientsDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="patientsTable.create"/>
+                <button id="editBtn"
+                        action="patientsTable.edit"/>
+                <button id="removeBtn"
+                        action="patientsTable.remove"/>
+            </buttonsPanel>
+        </table>
+    </layout>
+</window>

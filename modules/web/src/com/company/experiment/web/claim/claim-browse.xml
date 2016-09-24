@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.company.experiment.web.claim.ClaimBrowse"
+        focusComponent="claimsTable"
+        lookupComponent="claimsTable"
+        messagesPack="com.company.experiment.web.claim">
+    <dsContext>
+        <collectionDatasource id="claimsDs"
+                              class="com.company.experiment.entity.Claim"
+                              view="_minimal">
+            <query>
+                <![CDATA[select e from experiment$Claim e]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <layout expand="claimsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="claimsTable"
+                datasource="claimsDs">
+            <properties include=".*"/>
+        </filter>
+        <table id="claimsTable"
+               multiselect="true"
+               presentations="true"
+               width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+            </actions>
+            <columns>
+            </columns>
+            <rows datasource="claimsDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="claimsTable.create"/>
+                <button id="editBtn"
+                        action="claimsTable.edit"/>
+                <button id="removeBtn"
+                        action="claimsTable.remove"/>
+            </buttonsPanel>
+        </table>
+    </layout>
+</window>
